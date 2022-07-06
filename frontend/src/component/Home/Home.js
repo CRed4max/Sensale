@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { CgMouse } from 'react-icons/cg';
 import './Home.css';
-import Product from './ProductCard.js';
+import ProductCard from './ProductCard.js';
 import { useEffect } from 'react';
 import MetaData from '../layout/MetaData';
 import { clearErrors, getProduct } from '../../actions/productAction';
@@ -12,9 +12,10 @@ import Loader from '../layout/Loader/Loader';
 export const Home = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { loading, error, products, productsCount } = useSelector(
+  const { loading, error, products } = useSelector(
     (state) => state.products
   );
+
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -22,6 +23,7 @@ export const Home = () => {
     }
     dispatch(getProduct());
   }, [dispatch, error, alert]);
+
   return (
     <Fragment>
       {loading ? (
@@ -40,9 +42,10 @@ export const Home = () => {
           </div>
           <h2 className='homeHeading'>Featured Product</h2>
           <div className='container' id='container'>
-            {products.map((element) => {
-              return <Product product={element} />;
-            })}
+          {products &&
+              products.map((element) => {
+                return <ProductCard product={element} />;
+              })}
           </div>
         </Fragment>
       )}

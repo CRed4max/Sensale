@@ -23,7 +23,7 @@ const ProductDetails = () => {
     size: 'large',
     value: product.ratings,
     readOnly: true,
-    precision: 0.5,
+    precision: 0.1,
     isHalf: true,
   };
   useEffect(() => {
@@ -34,7 +34,7 @@ const ProductDetails = () => {
 
     dispatch(getProductDetails(id));
   }, [dispatch, error, alert]);
-  console.log(product);
+//   console.log(product);
   return (
     <Fragment>
       {loading ? (
