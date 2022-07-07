@@ -6,7 +6,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import FaceIcon from '@material-ui/icons/Face';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrors, login } from '../../actions/userAction';
+import { clearErrors, login, register } from '../../actions/userAction';
 import { useAlert } from 'react-alert';
 
 const LoginSignUp = () => {
@@ -50,7 +50,7 @@ const LoginSignUp = () => {
     myForm.set('email', email);
     myForm.set('password', password);
     myForm.set('avatar', avatar);
-    // dispatch(register(myForm));
+    dispatch(register(myForm));
   };
 
   const registerDataChange = (e) => {
@@ -76,8 +76,8 @@ const LoginSignUp = () => {
       dispatch(clearErrors());
     }
 
-    if(isAuthenticated){
-        navigate("/account")
+    if (isAuthenticated) {
+      navigate('/account');
     }
   }, [dispatch, error, alert, isAuthenticated, navigate]);
 
@@ -139,10 +139,10 @@ const LoginSignUp = () => {
                 <input type='submit' value='Login' className='loginBtn' />
               </form>
               <form
+                className='signUpForm'
                 ref={registerTab}
                 encType='multipart/form-data'
                 onSubmit={registerSubmit}
-                className='signUpForm'
               >
                 <div className='signUpName'>
                   <FaceIcon />
@@ -150,6 +150,7 @@ const LoginSignUp = () => {
                     type='text'
                     placeholder='Name'
                     required
+                    name='name'
                     value={name}
                     onChange={registerDataChange}
                   />
@@ -158,19 +159,20 @@ const LoginSignUp = () => {
                   <MailOutlineIcon />
                   <input
                     type='email'
-                    placeholder='email'
+                    placeholder='Email'
                     required
+                    name='email'
                     value={email}
                     onChange={registerDataChange}
                   />
                 </div>
-
                 <div className='signUpPassword'>
                   <LockOpenIcon />
                   <input
                     type='password'
-                    placeholder='password'
+                    placeholder='Password'
                     required
+                    name='password'
                     value={password}
                     onChange={registerDataChange}
                   />
@@ -185,13 +187,7 @@ const LoginSignUp = () => {
                     onChange={registerDataChange}
                   />
                 </div>
-
-                <input
-                  type='submit'
-                  value='Register'
-                  className='signUpBtn'
-                  //   disabled={loading ? true : false}
-                />
+                <input type='submit' value='Register' className='signUpBtn' />
               </form>
             </div>
           </div>
