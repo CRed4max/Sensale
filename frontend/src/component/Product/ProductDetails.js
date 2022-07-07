@@ -4,13 +4,14 @@ import { Rating } from '@material-ui/lab';
 import Carousel from 'react-material-ui-carousel';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearErrors, getProductDetails } from '../../actions/productAction';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Loader from '../layout/Loader/Loader';
 import { useParams } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
 import MetaData from '../layout/MetaData';
 import ReviewCard from './ReviewsCard.js';
 import { useAlert } from 'react-alert';
+import { addItemsToCart } from '../../actions/cartAction';
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -26,15 +27,40 @@ const ProductDetails = () => {
     precision: 0.1,
     isHalf: true,
   };
+
+  const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+
+  const increaseQuantity = () => {
+    if (product.Stock <= quantity) return;
+
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+
+  const decreaseQuantity = () => {
+    if (1 >= quantity) return;
+
+    const qty = quantity - 1;
+    setQuantity(qty);
+  };
+
+  const addToCartHandler = () => {
+    dispatch(addItemsToCart(id, quantity));
+    alert.success('Item Added To Cart');
+  };
+
   useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors())
+      dispatch(clearErrors());
     }
 
     dispatch(getProductDetails(id));
   }, [dispatch, error, alert]);
-//   console.log(product);
+  //   console.log(product);
   return (
     <Fragment>
       {loading ? (
@@ -44,7 +70,7 @@ const ProductDetails = () => {
           <MetaData title={`${product.name} -- ECOMMERCE`} />
           <div className='ProductDetails'>
             <div>
-              <Carousel>
+              <Carousel className='carousel'>
                 {product.images &&
                   product.images.map((item, i) => (
                     <img
@@ -73,11 +99,11 @@ const ProductDetails = () => {
                 <h1>{`₹${product.price}`}</h1>
                 <div className='detailsBlock-3-1'>
                   <div className='detailsBlock-3-1-1'>
-                    <button>-</button>
-                    <input readOnly type='number' value={1} />
-                    <button>+</button>
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input readOnly type='number' value={quantity} />
+                    <button onClick={increaseQuantity}>+</button>
                   </div>
-                  <button disabled={product.Stock < 1 ? true : false}>
+                  <button onClick={addToCartHandler} disabled={product.Stock < 1 ? true : false}>
                     Add to Cart
                   </button>
                 </div>
@@ -85,7 +111,9 @@ const ProductDetails = () => {
                 <p>
                   Status:
                   <b className={product.Stock < 1 ? 'redColor' : 'greenColor'}>
-                    {product.Stock < 1 ? 'OutOfStock' : 'InStock'}
+                    {product.Stock < 1
+                      ? 'OutOfStock'
+                      : `${product.Stock} InStock`}
                   </b>
                 </p>
               </div>

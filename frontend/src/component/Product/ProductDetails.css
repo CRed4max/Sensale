@@ -9,6 +9,7 @@
   
   .ProductDetails > div {
     width: 100%;
+    min-width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -21,9 +22,17 @@
   .ProductDetails > div:last-child {
     align-items: flex-start;
   }
+
+  .carousel {
+    padding-left: 5vh;
+    justify-content: center;
+    min-width: 80%;
+    min-height: 80%;
+  }
   
   .CarouselImage {
-    width: 20vmax;
+    width: 60vh;
+    height: 50vh;
   }
   
   .detailsBlock-1 > h2 {
