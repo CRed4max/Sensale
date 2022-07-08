@@ -123,6 +123,8 @@ export const getOrderDetails = (id) => async (dispatch) => {
 
     const { data } = await axios.get(`/api/v1/order/${id}`);
 
+    console.log(data);
+
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
   } catch (error) {
     dispatch({

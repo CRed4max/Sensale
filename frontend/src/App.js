@@ -29,7 +29,8 @@ import ProtectedRoute from './component/Route/ProtectedRoute';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-import MyOrders from "./component/Order/MyOrders.js"
+import MyOrders from './component/Order/MyOrders.js';
+import OrderDetails from './component/Order/OrderDetails.js';
 
 function App() {
   //4000002760003184
@@ -106,6 +107,15 @@ function App() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <MyOrders />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/order/:id'
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <OrderDetails />
             </ProtectedRoute>
           }
         ></Route>

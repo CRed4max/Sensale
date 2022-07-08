@@ -6,6 +6,10 @@ import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
+  NEW_REVIEW_SUCCESS,
+  NEW_REVIEW_RESET,
+  NEW_REVIEW_REQUEST,
+  NEW_REVIEW_FAIL,
 } from '../constants/productConstants.js';
 
 export const productReducers = (state = { products: [] }, action) => {
@@ -16,12 +20,12 @@ export const productReducers = (state = { products: [] }, action) => {
         products: [],
       };
     case ALL_PRODUCT_SUCCESS:
-      console.log(action.payload.product)
+      console.log(action.payload.product);
       return {
         loading: false,
         products: action.payload.product,
         productsCount: action.payload.productsCount,
-        resultPerPage:action.payload.resultPerPage,
+        resultPerPage: action.payload.resultPerPage,
       };
     case ALL_PRODUCT_FAIL:
       return {
@@ -56,6 +60,39 @@ export const productDetailsReducers = (state = { product: [] }, action) => {
         error: action.payload,
       };
 
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case NEW_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_REVIEW_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_REVIEW_RESET:
+      return {
+        ...state,
+        success: false,
+      };
     case CLEAR_ERRORS:
       return {
         ...state,
