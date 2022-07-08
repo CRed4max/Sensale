@@ -33,6 +33,15 @@ exports.getAllProducts = catchAsyncErrors(async (req, res) => {
     .json({ sucesss: true, product, productsCount, resultPerPage });
 });
 
+exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+  const products = await Product.find();
+
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
+
 // exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
 //   const resultPerPage = 8;
 //   const productsCount = await Product.countDocuments();

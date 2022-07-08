@@ -26,11 +26,13 @@ import { loadUser } from './actions/userAction';
 import UserOptions from './component/layout/Header/UserOptions.js';
 import { useSelector } from 'react-redux';
 import ProtectedRoute from './component/Route/ProtectedRoute';
+import ProtectedRouteAdmin from './component/Route/ProtectedRouteAdmin.js';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import MyOrders from './component/Order/MyOrders.js';
 import OrderDetails from './component/Order/OrderDetails.js';
+import Dashboard from './component/Admin/Dashboard.js';
 
 function App() {
   //4000002760003184
@@ -138,6 +140,15 @@ function App() {
           exact
           path='/password/reset/:token'
           element={<ResetPassword />}
+        ></Route>
+        <Route
+          exact
+          path='/admin/dashboard'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <Dashboard />
+            </ProtectedRouteAdmin>
+          }
         ></Route>
       </Routes>
       <Elements stripe={loadStripe(stripeApiKey)}>

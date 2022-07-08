@@ -10,6 +10,9 @@ import {
   NEW_REVIEW_FAIL,
   NEW_REVIEW_REQUEST,
   NEW_REVIEW_RESET,
+  ADMIN_PRODUCT_REQUEST,
+  ADMIN_PRODUCT_SUCCESS,
+  ADMIN_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from '../constants/productConstants.js';
 
@@ -21,7 +24,7 @@ export const getProduct =
 
       let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
       if (category) {
-        console.log(category);
+        // console.log(category);
         link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
       const { data } = await axios.get(link);
@@ -74,6 +77,25 @@ export const newReview = (reviewData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Products For Admin
+export const getAdminProduct = () => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_PRODUCT_REQUEST });
+
+    const { data } = await axios.get("/api/v1/admin/products");
+
+    dispatch({
+      type: ADMIN_PRODUCT_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_PRODUCT_FAIL,
       payload: error.response.data.message,
     });
   }
