@@ -17,6 +17,7 @@ import Cart from './component/Cart/Cart.js';
 import Shipping from './component/Cart/Shipping.js';
 import ConfirmOrder from './component/Cart/ConfirmOrder.js';
 import Payment from './component/Cart/Payment.js';
+import OrderSuccess from './component/Cart/OrderSuccess.js';
 import UpdateProfile from './component/User/UpdateProfile.js';
 import UpdatePassword from './component/User/UpdatePassword.js';
 import ForgotPassword from './component/User/ForgotPassword.js';
@@ -28,7 +29,10 @@ import ProtectedRoute from './component/Route/ProtectedRoute';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
+import MyOrders from "./component/Order/MyOrders.js"
+
 function App() {
+  //4000002760003184
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
   const [stripeApiKey, setStripeApiKey] = useState('');
@@ -84,6 +88,24 @@ function App() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <ConfirmOrder />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/success'
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <OrderSuccess />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/orders'
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <MyOrders />
             </ProtectedRoute>
           }
         ></Route>
