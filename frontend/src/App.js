@@ -41,8 +41,9 @@ import ProcessOrder from './component/Admin/ProcessOrder.js';
 import UsersList from './component/Admin/UsersList.js';
 import UpdateUser from './component/Admin/UpdateUser.js';
 import ProductReviews from './component/Admin/ProductReviews.js';
-import Contact from "./component/layout/Contact/Contact.js";
-import About from "./component/layout/About/About.js";
+import Contact from './component/layout/Contact/Contact.js';
+import About from './component/layout/About/About.js';
+import instance from './axios';
 
 function App() {
   //4000002760003184
@@ -51,7 +52,7 @@ function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
 
   async function getStripeApiKey() {
-    const { data } = await axios.get('/api/v1/stripeapikey');
+    const { data } = await instance.get('/api/v1/stripeapikey');
 
     setStripeApiKey(data.stripeApiKey);
   }

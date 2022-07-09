@@ -25,20 +25,18 @@ const About = () => {
             <Button onClick={visitInstagram} color='primary'>
               Visit Instagram
             </Button>
-            <span>
-              This is a sample wesbite.
-            </span>
+            <span>This is a sample wesbite.</span>
           </div>
           <div className='aboutSectionContainer2'>
             <Typography component='h2'>Our Brands</Typography>
-            <a
-              href='https://www.youtube.com/'
-              target='blank'
-            >
+            <a href='https://www.youtube.com/' target='blank'>
               <YouTubeIcon className='youtubeSvgIcon' />
             </a>
 
-            <a href='https://www.instagram.com/boogeyman_slayer/' target='blank'>
+            <a
+              href='https://www.instagram.com/boogeyman_slayer/'
+              target='blank'
+            >
               <InstagramIcon className='instagramSvgIcon' />
             </a>
           </div>

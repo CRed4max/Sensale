@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 const cookieParser = require('cookie-parser');
@@ -9,6 +10,13 @@ const dotenv = require('dotenv');
 
 dotenv.config({ path: 'backend/config/config.env' });
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  withCredentials: true,
+  //   Access-Control-Allow-Credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
