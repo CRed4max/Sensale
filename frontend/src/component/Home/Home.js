@@ -10,6 +10,8 @@ import { useAlert } from 'react-alert';
 import Loader from '../layout/Loader/Loader';
 
 export const Home = () => {
+  console.log("Home hun beta")
+
   const alert = useAlert();
   const dispatch = useDispatch();
   const { loading, error, products } = useSelector(

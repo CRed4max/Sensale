@@ -3,8 +3,12 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   adminProductReducer,
+  newProductReducer,
   newReviewReducer,
   productReducers,
+  productReviewsReducer,
+  reviewReducer,
+  UpdateProductReducer,
 } from './reducers/productReducers';
 import { productDetailsReducers } from './reducers/productReducers';
 import {
@@ -12,6 +16,7 @@ import {
   profileReducer,
   userReducer,
   allUsersReducer,
+  userDetailsReducer,
 } from './reducers/userReducer';
 import { cartReducer } from './reducers/cartReducer';
 import {
@@ -19,6 +24,7 @@ import {
   myOrdersReducer,
   newOrderReducer,
   orderDetailsReducer,
+  orderReducer,
 } from './reducers/orderReducer';
 const reducer = combineReducers({
   products: productReducers,
@@ -32,8 +38,14 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   newReview: newReviewReducer,
   product: adminProductReducer,
-  allOrders: allOrdersReducer,
   allUsers: allUsersReducer,
+  updateProduct: UpdateProductReducer,
+  newProduct: newProductReducer,
+  allOrders: allOrdersReducer,
+  order: orderReducer,
+  userDetails: userDetailsReducer,
+  review: reviewReducer,
+  productReviews: productReviewsReducer,
 });
 let initialState = {
   cart: {

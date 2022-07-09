@@ -33,6 +33,16 @@ import axios from 'axios';
 import MyOrders from './component/Order/MyOrders.js';
 import OrderDetails from './component/Order/OrderDetails.js';
 import Dashboard from './component/Admin/Dashboard.js';
+import ProductList from './component/Admin/ProductList.js';
+import NewProduct from './component/Admin/NewProduct.js';
+import UpdateProduct from './component/Admin/UpdateProduct.js';
+import OrderList from './component/Admin/OrderList.js';
+import ProcessOrder from './component/Admin/ProcessOrder.js';
+import UsersList from './component/Admin/UsersList.js';
+import UpdateUser from './component/Admin/UpdateUser.js';
+import ProductReviews from './component/Admin/ProductReviews.js';
+import Contact from "./component/layout/Contact/Contact.js";
+import About from "./component/layout/About/About.js";
 
 function App() {
   //4000002760003184
@@ -67,6 +77,8 @@ function App() {
         <Route exact path='/search' element={<Search />}></Route>
         <Route exact path='/login' element={<LoginSignUp />}></Route>
         <Route exact path='/cart' element={<Cart />}></Route>
+        <Route exact path='/contact' element={<Contact />}></Route>
+        <Route exact path='/about' element={<About />}></Route>
         <Route
           exact
           path='/account'
@@ -147,6 +159,78 @@ function App() {
           element={
             <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
               <Dashboard />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/admin/products'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <ProductList />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/admin/product'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <NewProduct />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/admin/product/:id'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <UpdateProduct />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/admin/orders'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <OrderList />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/admin/order/:id'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <ProcessOrder />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/admin/users'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <UsersList />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/admin/user/:id'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <UpdateUser />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/admin/reviews'
+          element={
+            <ProtectedRouteAdmin user={user} isAuthenticated={isAuthenticated}>
+              <ProductReviews />
             </ProtectedRouteAdmin>
           }
         ></Route>

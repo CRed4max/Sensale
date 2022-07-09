@@ -43,6 +43,7 @@ const UserOptions = ({ user }) => {
   }
 
   function dashboard() {
+    
     navigate('/admin/dashboard');
   }
 

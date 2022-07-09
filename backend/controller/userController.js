@@ -246,17 +246,24 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// Delete User
+// Delete User --Admin
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
+
   if (!user) {
     return next(
-      new ErrorHandler(`User does not exist with Id:${req.params.id}`)
+      new ErrorHander(`User does not exist with Id: ${req.params.id}`, 400)
     );
   }
+
+  const imageId = user.avatar.public_id;
+
+  await cloudinary.v2.uploader.destroy(imageId);
+
   await user.remove();
+
   res.status(200).json({
     success: true,
-    message: `User deleted Successfully`,
+    message: 'User Deleted Successfully',
   });
 });
