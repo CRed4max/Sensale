@@ -16,6 +16,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import SideBar from './Sidebar';
 import { UPDATE_PRODUCT_RESET } from '../../constants/productConstants';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getProduct } from '../../actions/productAction';
 
 const UpdateProduct = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,10 @@ const UpdateProduct = () => {
   const { id } = useParams();
 
   const { error, product } = useSelector((state) => state.productDetails);
+  const { products } = useSelector((state) => state.products);
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
 
   const {
     loading,
@@ -52,6 +57,23 @@ const UpdateProduct = () => {
   ];
 
   const productId = id;
+
+  const [check, setcheck] = useState(false);
+  useEffect(() => {
+    var count = 0;
+    console.log(products.length);
+    products.map((pp) => {
+      console.log(pp._id.toString() + ' ' + id.toString());
+      if (pp._id.toString() === id.toString()) {
+        setcheck(true);
+        count += 1;
+      }
+    });
+
+    if (count === 0 && products.length !== 0 && !check) {
+      navigate('/notfound');
+    }
+  }, [products, id, navigate, check]);
 
   useEffect(() => {
     if (product && product._id !== productId) {

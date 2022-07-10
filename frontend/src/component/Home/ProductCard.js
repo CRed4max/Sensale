@@ -14,7 +14,7 @@ const ProductCard = (props) => {
     isHalf: true,
   };
 
-  console.log(props.product);
+  // console.log(props.product);
   return (
     <Link className='productCard' to={`/product/${props.product._id}`}>
       <img

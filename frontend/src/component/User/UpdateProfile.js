@@ -53,7 +53,11 @@ const UpdateProfile = () => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
-    //   setAvatarPreview(user.avatar.url);
+      // setAvatarPreview(user.avatar.url);
+
+      setTimeout(() => {
+        setAvatarPreview(user.avatar.url);
+      }, 500);
     }
 
     if (error) {

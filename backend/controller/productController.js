@@ -42,20 +42,32 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get All Product
-exports.getAllProducts = catchAsyncErrors(async (req, res) => {
-  const resultPerPage = 8;
+exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
+  const resultPerPage = 4;
   const productsCount = await Product.countDocuments();
-  const apiFeature = new ApiFeatures(Product.find(), req.query)
+
+  const apiFeature1 = new ApiFeatures(Product.find(), req.query)
     .search()
-    .filter()
-    .pagination(resultPerPage);
-  const product = await apiFeature.query;
-  if (!product) {
-    return next(new ErrorHandler('product not found', 404));
-  }
-  res
-    .status(200)
-    .json({ sucesss: true, product, productsCount, resultPerPage });
+    .filter();
+  const apiFeature2 = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter();
+
+  let product = await apiFeature2.query;
+
+  let filteredProductsCount = product.length;
+
+  apiFeature1.pagination(resultPerPage);
+
+  product = await apiFeature1.query;
+
+  res.status(200).json({
+    success: true,
+    product,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  });
 });
 
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {

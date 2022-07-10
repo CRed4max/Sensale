@@ -1,12 +1,13 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import './orderDetails.css';
 import { useSelector, useDispatch } from 'react-redux';
 import MetaData from '../layout/MetaData';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { getOrderDetails, clearErrors } from '../../actions/orderAction';
 import Loader from '../layout/Loader/Loader';
 import { useAlert } from 'react-alert';
+import { getAllOrders } from '../../actions/orderAction';
 
 const OrderDetails = () => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
@@ -15,6 +16,38 @@ const OrderDetails = () => {
   const alert = useAlert();
 
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [check, setcheck] = useState(false);
+
+   const { orders } = useSelector((state) => state.allOrders);
+  useEffect(() => {
+    dispatch(getAllOrders());
+    // console.log(orders);
+  }, [dispatch]);
+
+  // console.log(orders)
+
+  useEffect(() => {
+    var count = 0;
+    //  dispatch(getAllOrders());
+    // if(orders&&orders.length!=0)
+    //  console.log(orders);
+    orders&&orders.map((pp) => {
+      // console.log(pp._id.toString() + ' ' + id.toString());
+      if (pp._id.toString() === id.toString()) {
+        setcheck(true);
+        count += 1;
+      }
+    });
+
+    setTimeout(()=>{
+      if (count === 0 &&orders&&orders.length !== 0 && !check) {
+        console.log("Hello there")
+        navigate('/notfound');
+      }
+    }, [1000])
+  }, [orders,id]);
 
   useEffect(() => {
     if (error) {

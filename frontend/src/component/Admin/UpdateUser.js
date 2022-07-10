@@ -12,6 +12,7 @@ import {
   getUserDetails,
   updateUser,
   clearErrors,
+  getAllUsers,
 } from '../../actions/userAction';
 import Loader from '../layout/Loader/Loader';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -24,6 +25,7 @@ const UpdateUser = () => {
   const {id} = useParams();
 
   const { loading, error, user } = useSelector((state) => state.userDetails);
+  const {users} = useSelector(state =>state.allUsers)
 
   const {
     loading: updateLoading,
@@ -36,6 +38,32 @@ const UpdateUser = () => {
   const [role, setRole] = useState('');
 
   const userId = id;
+  const [check, setcheck] = useState(false);
+
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+
+  useEffect(() => {
+    var count = 0;
+  
+    users&&users.map((pp) => {
+      if (pp._id.toString() === id.toString()) {
+        setcheck(true);
+        count += 1;
+      }
+    });
+
+    setTimeout(()=>{
+      if (count === 0 &&users&&users.length !== 0 && !check) {
+        console.log("Hello there")
+        navigate('/notfound');
+      }
+    }, [1000])
+  }, [users,id]);
+
 
   useEffect(() => {
     if (user && user._id !== userId) {

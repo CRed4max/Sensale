@@ -26,13 +26,19 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 60000]);
   const [category, setCategory] = useState('');
-  const { products, loading, error, resultPerPage, productsCount } =
-    useSelector((state) => state.products);
+  const {
+    products,
+    loading,
+    error,
+    resultPerPage,
+    productsCount,
+    filteredProductsCount,
+  } = useSelector((state) => state.products);
   const [ratings, setRatings] = useState(0);
 
   const { keyword } = useParams();
 
-  const alert  = useAlert();
+  const alert = useAlert();
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
@@ -41,21 +47,21 @@ const Products = () => {
     setPrice(newPrice);
   };
   useEffect(() => {
-
-    if(error){
+    if (error) {
       alert.error(error);
-      dispatch(clearErrors())
+      dispatch(clearErrors());
     }
 
     dispatch(getProduct(keyword, currentPage, price, category, ratings));
   }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
+  const count = filteredProductsCount;
   return (
     <Fragment>
       {loading ? (
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title = "PRODUCTS -- ECOMMERCE" />
+          <MetaData title='Products -- Sensale' />
           <h2 className='productsHeading'>Products</h2>
           <div className='products'>
             {products &&
@@ -95,20 +101,19 @@ const Products = () => {
                 onChange={(e, newRating) => {
                   setRatings(newRating);
                 }}
-
-                arial-labelledby = "continous-slider"
-                min = {0}
-                max = {5}
-                valueLabelDisplay = "auto"
+                arial-labelledby='continous-slider'
+                min={0}
+                max={5}
+                valueLabelDisplay='auto'
               />
             </fieldset>
           </div>
-          {resultPerPage < productsCount && (
+          {resultPerPage < count && (
             <div className='paginationBox'>
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={resultPerPage}
-                totalItemsCount={productsCount}
+                totalItemsCount={filteredProductsCount}
                 onChange={setCurrentPageNo}
                 nextPageText='Next'
                 prevPageText='Prev'

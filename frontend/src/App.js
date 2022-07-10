@@ -43,7 +43,7 @@ import UpdateUser from './component/Admin/UpdateUser.js';
 import ProductReviews from './component/Admin/ProductReviews.js';
 import Contact from './component/layout/Contact/Contact.js';
 import About from './component/layout/About/About.js';
-import instance from './axios';
+import NotFound from './component/layout/Not Found/NotFound';
 
 function App() {
   //4000002760003184
@@ -52,7 +52,7 @@ function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
 
   async function getStripeApiKey() {
-    const { data } = await instance.get('/api/v1/stripeapikey');
+    const { data } = await axios.get('/api/v1/stripeapikey');
 
     setStripeApiKey(data.stripeApiKey);
   }
@@ -66,6 +66,9 @@ function App() {
     store.dispatch(loadUser());
     getStripeApiKey();
   }, []);
+
+  // window.addEventListener('contextmenu', (e) => e.preventDefault());
+
   return (
     <Router>
       <Header />
@@ -80,6 +83,7 @@ function App() {
         <Route exact path='/cart' element={<Cart />}></Route>
         <Route exact path='/contact' element={<Contact />}></Route>
         <Route exact path='/about' element={<About />}></Route>
+
         <Route
           exact
           path='/account'
@@ -145,10 +149,18 @@ function App() {
         ></Route>
         <Route
           exact
+          path='/me/update'
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <UpdateProfile />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          exact
           path='/password/forgot'
           element={<ForgotPassword />}
         ></Route>
-        <Route exact path='/me/update' element={<UpdateProfile />}></Route>
         <Route
           exact
           path='/password/reset/:token'
@@ -235,6 +247,7 @@ function App() {
             </ProtectedRouteAdmin>
           }
         ></Route>
+        <Route path='*' element={<NotFound />}></Route>
       </Routes>
       <Elements stripe={loadStripe(stripeApiKey)}>
         <Routes>

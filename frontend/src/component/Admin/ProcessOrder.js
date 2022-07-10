@@ -15,11 +15,13 @@ import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import { Button } from '@material-ui/core';
 import { UPDATE_ORDER_RESET } from '../../constants/orderConstants';
 import './processOrder.css';
+import { getProductDetails, updateProduct } from '../../actions/productAction';
 
 const ProcessOrder = () => {
   const { id } = useParams();
 
   const { order, error, loading } = useSelector((state) => state.orderDetails);
+  const { product } = useSelector((state) => state.productDetails);
   const { error: updateError, isUpdated } = useSelector((state) => state.order);
 
   const updateOrderSubmitHandler = (e) => {
@@ -30,6 +32,26 @@ const ProcessOrder = () => {
     myForm.set('status', status);
 
     dispatch(updateOrder(id, myForm));
+
+    if (status === 'Shipped') {
+      order.orderItems.map((item) => {
+        const newForm = new FormData();
+
+        const pid = item.product;
+
+        if (pid) {
+          dispatch(getProductDetails(pid));
+        }
+
+        newForm.set('name', product.name);
+        newForm.set('price', product.price);
+        newForm.set('description', product.description);
+        newForm.set('category', product.category);
+        newForm.set('Stock', product.Stock - item.quantity);
+
+        dispatch(updateProduct(pid, newForm)); 
+      });
+    }
   };
 
   const dispatch = useDispatch();

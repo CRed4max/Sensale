@@ -22,10 +22,12 @@ import {
 import { Rating } from '@material-ui/lab';
 import { NEW_REVIEW_RESET } from '../../constants/productConstants';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getProduct } from '../../actions/productAction';
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
+  const navigate = useNavigate();
 
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
@@ -33,6 +35,29 @@ const ProductDetails = () => {
   const { success, error: reveiwError } = useSelector(
     (state) => state.newReview
   );
+
+  const [check, setcheck] = useState(false);
+
+  const { products } = useSelector((state) => state.products);
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
+  useEffect(() => {
+    var count = 0;
+    console.log(products.length);
+    products.map((pp) => {
+      console.log(pp._id.toString() + ' ' + id.toString());
+      if (pp._id.toString() === id.toString()) {
+        setcheck(true);
+        count += 1;
+      }
+    });
+
+    if (count === 0 && products.length !== 0 && !check) {
+      navigate('/notfound');
+    }
+  }, [products, id]);
 
   const options = {
     size: 'large',
@@ -76,8 +101,7 @@ const ProductDetails = () => {
     myForm.set('rating', rating);
     myForm.set('comment', comment);
     myForm.set('productId', id);
-     
-    
+
     dispatch(newReview(myForm));
 
     setOpen(false);
@@ -108,7 +132,7 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`${product.name} -- ECOMMERCE`} />
+          <MetaData title={`${product.name} -- Sensale`} />
           <div className='ProductDetails'>
             <div>
               <Carousel className='carousel'>

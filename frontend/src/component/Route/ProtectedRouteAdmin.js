@@ -1,16 +1,23 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRouteAdmin = ({ user, isAuthenticated, children }) => {
-  //   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
+const ProtectedRouteAdmin = ({ children }) => {
+  const dispatch = useDispatch();
+  const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 
-  if (!isAuthenticated) {
-    return <Navigate to='/login' />;
-  }
+  // useEffect(() => {
 
-  if (user.role.toString() !== 'admin') {
-    return <Navigate to='/' />;
-  }
+  // }, [dispatch])
+
+  // if (!isAuthenticated) {
+  //   console.log('login nahi hai' + user);
+  //   return <Navigate to='/' />;
+  // }
+
+  // if (user.role.toString() !== 'admin') {
+  //   return <Navigate to='/' />;
+  // }
   return children;
 };
 

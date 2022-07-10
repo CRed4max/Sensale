@@ -4,19 +4,12 @@ import MetaData from '../layout/MetaData';
 import Loader from '../layout/Loader/Loader';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import "./Profile.css"
+import './Profile.css';
 
-
-const Profile = () => {
+const Profile = (probs) => {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if(!isAuthenticated){
-        navigate("/logging");
-    }
-  }, [navigate, isAuthenticated])
-  
 
   return (
     <Fragment>

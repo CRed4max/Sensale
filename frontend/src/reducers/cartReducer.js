@@ -12,7 +12,7 @@ export const cartReducer = (
     case ADD_TO_CART:
       const item = action.payload;
 
-      console.log(item);
+      // console.log(item);
 
       const isItemExist = state.cartItems.find(
         (i) => i.product === item.product
@@ -31,19 +31,16 @@ export const cartReducer = (
           cartItems: [...state.cartItems, item],
         };
       }
-
     case REMOVE_CART_ITEM:
       return {
         ...state,
         cartItems: state.cartItems.filter((i) => i.product !== action.payload),
       };
-
     case SAVE_SHIPPING_INFO:
       return {
         ...state,
         shippingInfo: action.payload,
       };
-
     default:
       return state;
   }

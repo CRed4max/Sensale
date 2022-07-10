@@ -70,12 +70,13 @@ export const productReducers = (state = { products: [] }, action) => {
         products: [],
       };
     case ALL_PRODUCT_SUCCESS:
-      console.log(action.payload.product);
+      // console.log(action.payload.product);
       return {
         loading: false,
         products: action.payload.product,
         productsCount: action.payload.productsCount,
         resultPerPage: action.payload.resultPerPage,
+        filteredProductsCount: action.payload.filteredProductsCount,
       };
     case ALL_PRODUCT_FAIL:
       return {
@@ -374,4 +375,3 @@ export const newProductReducer = (state = { product: {} }, action) => {
       return state;
   }
 };
-

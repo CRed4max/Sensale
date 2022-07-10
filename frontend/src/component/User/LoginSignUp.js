@@ -53,6 +53,12 @@ const LoginSignUp = () => {
     dispatch(register(myForm));
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
   const registerDataChange = (e) => {
     if (e.target.name === 'avatar') {
       const reader = new FileReader();
