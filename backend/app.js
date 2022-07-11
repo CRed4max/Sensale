@@ -1,6 +1,5 @@
 const express = require('express');
 // const cors = require('cors');
-const dotenv = require('dotenv');
 
 const app = express();
 const cookieParser = require('cookie-parser');
@@ -10,7 +9,7 @@ const fileUpload = require('express-fileupload');
 const path = require('path');
 
 if (process.env.NODE_ENV !== 'PRODUCTION') {
-  dotenv.config({ path: './backend/config/config.env' });
+  require('dotenv').config({ path: './backend/config/config.env' });
 }
 
 // const corsOptions = {
