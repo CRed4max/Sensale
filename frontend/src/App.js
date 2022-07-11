@@ -73,6 +73,34 @@ function App() {
     <Router>
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
+
+      {/* <Elements stripe={loadStripe(stripeApiKey)}>
+        <Routes>
+          <Route
+            exact
+            path='/process/payment'
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <Payment />
+              </ProtectedRoute>
+            }
+          ></Route>
+        </Routes>
+      </Elements> */}
+      {/* <Routes>
+        <Route
+          exact
+          path='/process/payment'
+          element={
+            <Elements stripe={loadStripe(stripeApiKey)}>
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <Payment />
+              </ProtectedRoute>
+            </Elements>
+          }
+        ></Route>
+      </Routes> */}
+
       <Routes>
         <Route exact path='/' element={<Home />}></Route>
         <Route exact path='/product/:id' element={<ProductDetails />}></Route>
@@ -247,21 +275,20 @@ function App() {
             </ProtectedRouteAdmin>
           }
         ></Route>
-        <Route path='*' element={<NotFound />}></Route>
-      </Routes>
-      <Elements stripe={loadStripe(stripeApiKey)}>
-        <Routes>
-          <Route
-            exact
-            path='/process/payment'
-            element={
+        <Route
+          exact
+          path='/process/payment'
+          element={
+            <Elements stripe={loadStripe(stripeApiKey)}>
               <ProtectedRoute isAuthenticated={isAuthenticated}>
                 <Payment />
               </ProtectedRoute>
-            }
-          ></Route>
-        </Routes>
-      </Elements>
+            </Elements>
+          }
+        ></Route>
+        <Route path='*' element={<NotFound />}></Route>
+      </Routes>
+
       <Footer />
     </Router>
   );
