@@ -9,7 +9,6 @@ const ProductCard = (props) => {
   const options = {
     edit: false,
     value: props.product.ratings,
-    size: 'large',
     precision: 0.5,
     isHalf: true,
   };
@@ -24,7 +23,7 @@ const ProductCard = (props) => {
       <p>{props.product.name}</p>
       <div>
         <Rating {...options} />{' '}
-        <span>({props.product.reviews.length} Reviews)</span>
+        <span className='productCardSpan'>({props.product.reviews.length} Reviews)</span>
       </div>
       <span>{`₹${props.product.price}`}</span>
     </Link>

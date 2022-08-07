@@ -70,9 +70,9 @@ const UpdateProduct = () => {
       }
     });
 
-    if (count === 0 && products.length !== 0 && !check) {
-      navigate('/notfound');
-    }
+    // if (count === 0 && products.length !== 0 && !check) {
+    //   navigate('/notfound');
+    // }
   }, [products, id, navigate, check]);
 
   useEffect(() => {
