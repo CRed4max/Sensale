@@ -19,42 +19,9 @@ const Contact = () => {
       <div></div>
       <div className='aboutSectionGradient'></div>
       <div className='aboutSectionContainer'>
-        <Typography component='h1'>Contact Us</Typography>
+        <Typography component='h1'>Contact Me</Typography>
 
         <div>
-          <div>
-            <Avatar
-              style={{ width: '10vmax', height: '10vmax', margin: '2vmax 0' }}
-              src='./pic01.jpg'
-              alt='Founder'
-            />
-            <h2>Deelip Singh Rathore</h2>
-            <div className='icons'>
-              <a
-                href='https://www.linkedin.com/in/deelip-singh-rathore-a486bb1b8/'
-                target='_blank'
-              >
-                <LinkedInIcon className='instagramSvgIcon' />
-              </a>
-              <a
-                href='https://www.instagram.com/boogeyman_slayer/'
-                target='blank'
-              >
-                <InstagramIcon className='instagramSvgIcon' />
-              </a>
-              <a href='https://github.com/DeelipSinghRathore' target='blank'>
-                <GitHubIcon className='instagramSvgIcon' />
-              </a>
-              <a href='mailto:deelipsinghrathore300@gmail.com' target='blank'>
-                <MailIcon className='instagramSvgIcon' />
-              </a>
-            </div>
-            <span>
-              I am a MNIT Jaipur Student of Computer Science Branch pursuing
-              B.Tech (Batch 2023)
-            </span>
-          </div>
-
           <div>
             <Avatar
               style={{ width: '10vmax', height: '10vmax', margin: '2vmax 0' }}
