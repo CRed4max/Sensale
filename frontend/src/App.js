@@ -6,7 +6,7 @@ import WebFont from "webfontloader";
 import React, { useState } from "react";
 import Home from "./component/Home/Home";
 import ProductDetails from "./component/Product/ProductDetails.js";
-import { Switch } from "react-router-dom/cjs/react-router-dom.min";
+import { Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Products from "./component/Product/Products.js";
 import Search from "./component/Product/Search.js";
