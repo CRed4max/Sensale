@@ -1,5 +1,5 @@
 const express = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 
 const app = express();
 const cookieParser = require('cookie-parser');
@@ -12,13 +12,12 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
   require('dotenv').config({ path: './backend/config/config.env' });
 }
 
-// const corsOptions = {
-//   origin: 'http://localhost:3000',
-//   withCredentials: true,
-//   //   Access-Control-Allow-Credentials: true,
-// };
+const corsOptions = {
+  origin: '*',
+  withCredentials: true,
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

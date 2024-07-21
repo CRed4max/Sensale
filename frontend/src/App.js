@@ -48,6 +48,7 @@ import NotFound from "./component/layout/Not Found/NotFound";
 function App() {
   //4000002760003184
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  axios.defaults.baseURL = 'https://sensale.onrender.com';
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
